@@ -1,0 +1,50 @@
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+img.logo {
+    display: block;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 250px;
+}
+
+h1 {
+    text-align: center;
+}
+
+button.add {
+    position: absolute;
+    display: block;
+    text-align: center;
+    top: 5%;
+    right: 5%;
+}
+
+button.remove{
+    background-color: red;
+}
+
+div {
+    margin-top: 100px;
+    background-color: lightblue;
+    white-space: nowrap;
+}
+
+div img {
+    width: 20%;
+}
+
+
+div ul {
+    display: inline;
+}
+
+.artist {
+    font-weight: bold;
+}
+
+.title {
+    font-style: italic;
+}
