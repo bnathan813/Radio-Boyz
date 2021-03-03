@@ -2,6 +2,24 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
+.container {
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+img.child {
+    float: left;
+    width: 10%;
+    background-color: lightblue;
+}
+
+div.child {
+    float: left;
+    width: 30%;
+    background-color: lightblue;
+}
+
 img.logo {
     display: block;
     position: absolute;
@@ -24,21 +42,6 @@ button.add {
 
 button.remove{
     background-color: red;
-}
-
-div {
-    margin-top: 100px;
-    background-color: lightblue;
-    white-space: nowrap;
-}
-
-div img {
-    width: 20%;
-}
-
-
-div ul {
-    display: inline;
 }
 
 .artist {
