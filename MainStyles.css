@@ -2,22 +2,39 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.container {
+.list {
     margin-top: 100px;
+}
+
+.container {
+    width: 90%;
+    height: 250px;
+    background-color: lightblue;
+    border: 5px solid black;
+    box-shadow: 5px 5px 5px red;
+    margin-top: 15px;
     margin-left: 50px;
     margin-right: 50px;
 }
 
 img.child {
     float: left;
-    width: 10%;
+    margin: 15px;
+    width: 200px;
     background-color: lightblue;
 }
 
 div.child {
     float: left;
     width: 30%;
-    background-color: lightblue;
+    margin: auto;
+}
+
+.childtracks {
+    float: right;
+    width: 10%;
+    height: 90%;
+    margin: 15px;
 }
 
 img.logo {
@@ -25,11 +42,15 @@ img.logo {
     position: absolute;
     top: 5%;
     left: 5%;
-    width: 250px;
+    width: 15%;
 }
 
 h1 {
     text-align: center;
+}
+
+ul li {
+    list-style: none;
 }
 
 button.add {
