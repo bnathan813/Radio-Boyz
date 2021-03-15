@@ -1,5 +1,12 @@
 
-<?php?>
+<?php
+    require_once("db.php");
+    $sql = "select * from bit4444group41.record";
+    $result = $mydb->query($sql);
+    while ($row = mysqli_fetch_array($result)) {
+        echo $row["Artist"];
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
