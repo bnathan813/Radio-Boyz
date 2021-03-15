@@ -40,21 +40,20 @@
                                     echo $row['DateAdded'];
                                 echo "</li>                    
                             </ul>
-                        </div>";
-                        /*
-                        <div class="child">
-                            <p>
-                                Description: <span class="desc"></span>
-                            </p>
                         </div>
-                        <div class="childtracks">
-                            Suggested Tracks: <span class="sugg">1, 2, 3</span> </br>
-                            FCC: <span class="sugg">9</span> </br> </br>
-                            <div class="buttonRemove">
-                                <button class="remove">Remove</button>
+                        <div class='child'>
+                            <p>";
+                                echo "Description: <span class='desc'>".$row['Description']."</span>";
+                            echo "</p>
+                        </div>
+                        <div class='childtracks'>";
+                            echo "Suggested Tracks: <span class='sugg'>".$row['Suggested']."</span> </br>";
+                            echo "FCC: <span class='sugg'>".$row['FCC']."</span> </br> </br>";
+                            echo "<div class='buttonRemove'>
+                                <button class='remove'>Remove</button>
                             </div>
                         </div>
-                    </div> */
+                    </div>";
                 }
             ?>
         </div>
