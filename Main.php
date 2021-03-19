@@ -51,7 +51,7 @@
                     Suggested Tracks: <span class="sugg"><?php echo $rows['Suggested']; ?></span> </br>
                     FCC: <span class="sugg"><?php echo $rows['FCC']; ?></span> </br> </br>
                     <div class="buttonRemove">
-                        <button class="remove">Remove</button>
+                        <a class="remove" href="delete.php?del=$rows[idRecord]">Remove</a>
                     </div>
                 </div>
             </div>

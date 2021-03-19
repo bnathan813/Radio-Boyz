@@ -50,7 +50,6 @@ if (isset($_POST["submit"])) {
     </head>
     <body>
         <header>
-            <img src="WUVT.png" class="logo" alt="WUVT logo">
             <h1>Add Release</h1>
         </header>
 
