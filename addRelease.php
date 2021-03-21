@@ -11,15 +11,15 @@ $FCC = "";
 $cover = "";
 $error = false;
 if (isset($_POST["submit"])) {
-    if (isset($_POST["artist"])) $artist = $_POST["artist"];
-    if (isset($_POST["title"])) $title = $_POST["title"];
-    if (isset($_POST["label"])) $label = $_POST["label"];
-    if (isset($_POST["genre"])) $genre = $_POST["genre"];
-    if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
+    if (isset($_POST["artist"])) $artist = htmlspecialchars($_POST["artist"], ENT_QUOTES);
+    if (isset($_POST["title"])) $title = htmlspecialchars($_POST["title"], ENT_QUOTES);
+    if (isset($_POST["label"])) $label = htmlspecialchars($_POST["label"], ENT_QUOTES);
+    if (isset($_POST["genre"])) $genre = htmlspecialchars($_POST["genre"], ENT_QUOTES);
+    if (isset($_POST["addedBy"])) $author = htmlspecialchars($_POST["addedBy"], ENT_QUOTES);
     if (isset($_POST["addDate"])) $date = $_POST["addDate"];
-    if (isset($_POST["description"])) $desc = $_POST["description"];
-    if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
-    if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
+    if (isset($_POST["description"])) $desc = htmlspecialchars($_POST["description"], ENT_QUOTES);
+    if (isset($_POST["suggTracks"])) $suggested = htmlspecialchars($_POST["suggTracks"], ENT_QUOTES);
+    if (isset($_POST["FCCTracks"])) $FCC = htmlspecialchars($_POST["FCCTracks"], ENT_QUOTES);
     if (isset($_POST["cover"])) $cover = $_POST["cover"];
     if (empty($artist) || empty($title) || empty($label) || empty($genre) || empty($author) || empty($date) || empty($desc) || empty($suggested) || empty($FCC) || empty($cover)) {
         $error = true;
