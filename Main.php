@@ -21,7 +21,7 @@
                 while ($rows = mysqli_fetch_array($result)) {
             ?>
             <div class='container'>
-                <img src=<?php echo $rows['AlbumCover']; ?> class='child'>
+                <img src="covers/<?php echo $rows['AlbumCover'];?>" class='child'>
                 <div class='child'>
                     <ul>
                         <li>

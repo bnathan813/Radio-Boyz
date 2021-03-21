@@ -1,46 +1,3 @@
-<?php
-$artist = "";
-$title ="";
-$label = "";
-$genre = "";
-$author = "";
-$date = date("m/d/y");
-$desc = "";
-$suggested = "";
-$FCC = "";
-$cover = "";
-$error = false;
-if (isset($_POST["submit"])) {
-    if (isset($_POST["artist"])) $artist = htmlspecialchars($_POST["artist"], ENT_QUOTES);
-    if (isset($_POST["title"])) $title = htmlspecialchars($_POST["title"], ENT_QUOTES);
-    if (isset($_POST["label"])) $label = htmlspecialchars($_POST["label"], ENT_QUOTES);
-    if (isset($_POST["genre"])) $genre = htmlspecialchars($_POST["genre"], ENT_QUOTES);
-    if (isset($_POST["addedBy"])) $author = htmlspecialchars($_POST["addedBy"], ENT_QUOTES);
-    if (isset($_POST["addDate"])) $date = $_POST["addDate"];
-    if (isset($_POST["description"])) $desc = htmlspecialchars($_POST["description"], ENT_QUOTES);
-    if (isset($_POST["suggTracks"])) $suggested = htmlspecialchars($_POST["suggTracks"], ENT_QUOTES);
-    if (isset($_POST["FCCTracks"])) $FCC = htmlspecialchars($_POST["FCCTracks"], ENT_QUOTES);
-    if (isset($_POST["cover"])) $cover = $_POST["cover"];
-    if (empty($artist) || empty($title) || empty($label) || empty($genre) || empty($author) || empty($date) || empty($desc) || empty($suggested) || empty($FCC) || empty($cover)) {
-        $error = true;
-    }
-    if (!$error) {
-        require_once("db.php");
-        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover)
-        values ('$artist', '$title', '$label', '$genre', '$author', '$date', '$desc', '$suggested', '$FCC', '$cover')";
-        $result = $mydb ->query($sql);
-        if ($result == 1) {
-            echo "<script>alert('Record has been successfully added... Redirecting to home page.')
-            window.location.href = 'Main.php'
-            </script>";
-        }
-    }
-    else {
-        echo "<script>alert('Please enter valid inputs.')</script>";
-    }
-}
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +10,7 @@ if (isset($_POST["submit"])) {
             <h1>Add Release</h1>
         </header>
 
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
 
             <label for="artist">Artist:</label>
             <input type="text" id="artist" name="artist"><br><br>
@@ -86,6 +43,64 @@ if (isset($_POST["submit"])) {
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png"><br><br>
 
             <input type="submit" name = "submit" value="Add Record">
-          </form>
+        </form>
     </body>
 </html>
+
+<?php
+$artist = "";
+$title ="";
+$label = "";
+$genre = "";
+$author = "";
+$date = date("m/d/y");
+$desc = "";
+$suggested = "";
+$FCC = "";
+$cover = "";
+$error = false;
+if (isset($_POST["submit"])) {
+    if (isset($_POST["artist"])) $artist = htmlspecialchars($_POST["artist"], ENT_QUOTES);
+    if (isset($_POST["title"])) $title = htmlspecialchars($_POST["title"], ENT_QUOTES);
+    if (isset($_POST["label"])) $label = htmlspecialchars($_POST["label"], ENT_QUOTES);
+    if (isset($_POST["genre"])) $genre = htmlspecialchars($_POST["genre"], ENT_QUOTES);
+    if (isset($_POST["addedBy"])) $author = htmlspecialchars($_POST["addedBy"], ENT_QUOTES);
+    if (isset($_POST["addDate"])) $date = $_POST["addDate"];
+    if (isset($_POST["description"])) $desc = htmlspecialchars($_POST["description"], ENT_QUOTES);
+    if (isset($_POST["suggTracks"])) $suggested = htmlspecialchars($_POST["suggTracks"], ENT_QUOTES);
+    if (isset($_POST["FCCTracks"])) $FCC = htmlspecialchars($_POST["FCCTracks"], ENT_QUOTES);
+    $dir="covers/";
+    $albumCover=htmlspecialchars($_FILES['cover']['name'], ENT_QUOTES);
+    $temp_name=$_FILES['cover']['tmp_name'];
+ 
+    if($albumCover!="")
+    {
+        if(file_exists($dir.$albumCover))
+        {
+            $albumCover= time().'_'.$albumCover;
+        }
+ 
+        $fdir= $dir.$albumCover;
+        move_uploaded_file($temp_name, $fdir);
+    }
+
+    if (empty($artist) || empty($title) || empty($label) || empty($genre) || empty($author) || empty($date) || empty($desc) || empty($suggested) || empty($FCC) || empty($albumCover)) {
+        $error = true;
+    }
+    if (!$error) {
+        require_once("db.php");
+        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover)
+        values ('$artist', '$title', '$label', '$genre', '$author', '$date', '$desc', '$suggested', '$FCC', '$albumCover')";
+        $result = $mydb ->query($sql);
+        if ($result == 1) {
+            echo "<script>alert('Record has been successfully added... Redirecting to home page.')
+            window.location.href = 'Main.php'
+            </script>";
+        }
+    }
+    else {
+        echo "<script>alert('Please enter valid inputs.')</script>";
+    }
+}
+
+?>
