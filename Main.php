@@ -14,7 +14,7 @@
     <body>
         <img src="WUVT.png" class="logo" alt="WUVT logo">
         <h1>New Music Rotation</h1>
-        <button class="add">Add Release</button>
+        <a class="add" href="addRelease.php">Add Release</a>
 
         <div class="list">
             <?php
@@ -51,7 +51,7 @@
                     Suggested Tracks: <span class="sugg"><?php echo $rows['Suggested']; ?></span> </br>
                     FCC: <span class="sugg"><?php echo $rows['FCC']; ?></span> </br> </br>
                     <div class="buttonRemove">
-                        <a class="remove" href="delete.php?del=$rows[idRecord]">Remove</a>
+                        <a class="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>">Remove</a>
                     </div>
                 </div>
             </div>

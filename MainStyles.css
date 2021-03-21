@@ -54,7 +54,7 @@ ul li {
     list-style: none;
 }
 
-button.add {
+a.add {
     position: absolute;
     display: block;
     text-align: center;
