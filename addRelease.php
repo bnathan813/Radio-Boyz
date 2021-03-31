@@ -42,6 +42,9 @@
             <label for="cover">Cover:</label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png"><br><br>
 
+            <label for="autoRemove">Auto-Remove after 90 days?</label>
+            <input type="checkbox" id="autoRemove" name="autoRemove"><br><br>
+
             <input type="submit" name = "submit" value="Add Record">
         </form>
     </body>
@@ -53,11 +56,12 @@ $title ="";
 $label = "";
 $genre = "";
 $author = "";
-$date = date("m/d/y");
+$date = date_create();
 $desc = "";
 $suggested = "";
 $FCC = "";
 $cover = "";
+$autoRemove = 0;
 $error = false;
 if (isset($_POST["submit"])) {
     if (isset($_POST["artist"])) $artist = htmlspecialchars($_POST["artist"], ENT_QUOTES);
@@ -65,10 +69,15 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["label"])) $label = htmlspecialchars($_POST["label"], ENT_QUOTES);
     if (isset($_POST["genre"])) $genre = htmlspecialchars($_POST["genre"], ENT_QUOTES);
     if (isset($_POST["addedBy"])) $author = htmlspecialchars($_POST["addedBy"], ENT_QUOTES);
-    if (isset($_POST["addDate"])) $date = $_POST["addDate"];
+    if (isset($_POST["addDate"])) {
+        $date = date_create($_POST["addDate"]);
+        $addDate = date_format($date, "Y/m/d");
+        $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
+    }
     if (isset($_POST["description"])) $desc = htmlspecialchars($_POST["description"], ENT_QUOTES);
     if (isset($_POST["suggTracks"])) $suggested = htmlspecialchars($_POST["suggTracks"], ENT_QUOTES);
     if (isset($_POST["FCCTracks"])) $FCC = htmlspecialchars($_POST["FCCTracks"], ENT_QUOTES);
+    if($_POST["autoRemove"] == "on") $autoRemove = 1;
     $dir="covers/";
     $albumCover=htmlspecialchars($_FILES['cover']['name'], ENT_QUOTES);
     $temp_name=$_FILES['cover']['tmp_name'];
@@ -89,8 +98,8 @@ if (isset($_POST["submit"])) {
     }
     if (!$error) {
         require_once("db.php");
-        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover)
-        values ('$artist', '$title', '$label', '$genre', '$author', '$date', '$desc', '$suggested', '$FCC', '$albumCover')";
+        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
+        values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
         $result = $mydb ->query($sql);
         if ($result == 1) {
             echo "<script>alert('Record has been successfully added... Redirecting to home page.')

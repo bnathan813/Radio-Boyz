@@ -2,7 +2,6 @@
     require_once("db.php");
     $sql = "select * from bit4444group41.record order by DateAdded DESC";
     $result = $mydb->query($sql);
-    
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +37,14 @@
                         </li>
                         <li>
                             <?php echo $rows['DateAdded']; ?>
-                        </li>                    
+                        </li>
+                        <li>
+                            <?php
+                                if($rows['AutoRemove'] == 1) {
+                                    echo "<strong>Auto-Remove on: ".$rows['AutoRemoveDate']."</strong>";
+                                }
+                            ?>
+                        </li>
                     </ul>
                 </div>
                             
