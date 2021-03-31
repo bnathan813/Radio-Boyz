@@ -1,6 +1,6 @@
 <?php
     require_once("db.php");
-    $sql = "select * from bit4444group41.record";
+    $sql = "select * from bit4444group41.record order by DateAdded DESC";
     $result = $mydb->query($sql);
     
 ?>
