@@ -13,34 +13,34 @@
         <form method="POST" action="" enctype="multipart/form-data">
 
             <label for="artist">Artist:</label>
-            <input type="text" id="artist" name="artist"><br><br>
+            <input type="text" id="artist" name="artist" maxlength="100"><br><br>
             
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title"><br><br>
+            <input type="text" id="title" name="title" maxlength="100"><br><br>
             
             <label for="label">Label:</label>
-            <input type="text" id="label" name="label"><br><br>
+            <input type="text" id="label" name="label" maxlength="45"><br><br>
 
             <label for="genre">Genre(s):</label>
-            <input type="text" id="genre" name="genre"><br><br>
+            <input type="text" id="genre" name="genre" maxlength="45"><br><br>
 
             <label for="addedBy">Added By:</label>
-            <input type="text" id="addedBy" name="addedBy"><br><br>
+            <input type="text" id="addedBy" name="addedBy" maxlength="100"><br><br>
 
             <label for="addDate">Date Added (today):</label>
             <input type="date" id="addDate" name="addDate"><br><br>
 
             <label for="description">Description</label>
-            <textarea id="description" name="description" rows="8" cols="50"></textarea><br><br>
+            <textarea id="description" name="description" rows="8" cols="50" maxlength="1000"></textarea><br><br>
 
             <label for="suggTracks">Suggested Tracks:</label>
-            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8"><br><br>
+            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" maxlength="20"><br><br>
 
             <label for="FCCTracks">FCC Tracks:</label>
-            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none"><br><br>
+            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" maxlength="20"><br><br>
 
             <label for="cover">Cover:</label>
-            <input type="file" id="cover" name="cover" accept=".jpg" accept=".png"><br><br>
+            <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
             <label for="autoRemove">Auto-Remove after 90 days?</label>
             <input type="checkbox" id="autoRemove" name="autoRemove"><br><br>
