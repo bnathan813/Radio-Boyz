@@ -18,6 +18,15 @@
         <div class="list">
             <?php
                 while ($rows = mysqli_fetch_array($result)) {
+                    if($rows['AutoRemoveDate'] <= date("Y-m-d") && $rows['AutoRemove'] == 1) {
+                        $id = $rows['idRecord'];
+                        $cover = $rows['AlbumCover'];
+                        $dir = "covers/";
+                        unlink($dir.$cover);
+                        $autoDeletesql = "DELETE FROM bit4444group41.record WHERE idRecord = '$id'";
+                        $autoDeleteresult = $mydb ->query($autoDeletesql);
+                        echo "<meta http-equiv='refresh' content='0;url=Main.php'>";
+                    }
             ?>
             <div class='container'>
                 <img src="covers/<?php echo $rows['AlbumCover'];?>" class='child'>
