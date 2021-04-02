@@ -77,22 +77,9 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["description"])) $desc = $_POST["description"];
     if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
     if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
-    if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;
-    $dir="covers/";
+    if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;    
     $albumCover=$_FILES['cover']['name'];
-    $temp_name=$_FILES['cover']['tmp_name'];
- 
-    if($albumCover!="")
-    {
-        if(file_exists($dir.$albumCover))
-        {
-            $albumCover= time().'_'.$albumCover;
-        }
- 
-        $fdir= $dir.$albumCover;
-        move_uploaded_file($temp_name, $fdir);
-    }
-
+    
     if (empty($artist) || empty($title) || empty($label) || empty($genre) || empty($author) || empty($date) || empty($desc) || empty($suggested) || empty($FCC) || empty($albumCover)) {
         $error = true;
     }
@@ -107,6 +94,17 @@ if (isset($_POST["submit"])) {
         $result = $sql->execute();
         
         if($result) {
+            $dir="covers/";
+            $temp_name=$_FILES['cover']['tmp_name'];
+ 
+            if($albumCover!="") {
+                if(file_exists($dir.$albumCover)) {
+                    $albumCover= time().'_'.$albumCover;
+                }
+ 
+                $fdir= $dir.$albumCover;
+                move_uploaded_file($temp_name, $fdir);
+            }
             echo "<script>alert('Record has been successfully added... Redirecting to home page.')
             window.location.href = 'Main.php'
             </script>";
