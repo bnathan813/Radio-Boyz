@@ -34,10 +34,10 @@
             <textarea id="description" name="description" rows="8" cols="50" maxlength="1000"></textarea><br><br>
 
             <label for="suggTracks">Suggested Tracks:</label>
-            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" maxlength="20"><br><br>
+            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" maxlength="50"><br><br>
 
             <label for="FCCTracks">FCC Tracks:</label>
-            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" maxlength="20"><br><br>
+            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" maxlength="50"><br><br>
 
             <label for="cover">Cover:</label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
@@ -64,22 +64,22 @@ $cover = "";
 $autoRemove = 0;
 $error = false;
 if (isset($_POST["submit"])) {
-    if (isset($_POST["artist"])) $artist = htmlspecialchars($_POST["artist"], ENT_QUOTES);
-    if (isset($_POST["title"])) $title = htmlspecialchars($_POST["title"], ENT_QUOTES);
-    if (isset($_POST["label"])) $label = htmlspecialchars($_POST["label"], ENT_QUOTES);
-    if (isset($_POST["genre"])) $genre = htmlspecialchars($_POST["genre"], ENT_QUOTES);
-    if (isset($_POST["addedBy"])) $author = htmlspecialchars($_POST["addedBy"], ENT_QUOTES);
+    if (isset($_POST["artist"])) $artist = $_POST["artist"];
+    if (isset($_POST["title"])) $title = $_POST["title"];
+    if (isset($_POST["label"])) $label = $_POST["label"];
+    if (isset($_POST["genre"])) $genre = $_POST["genre"];
+    if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
     if (isset($_POST["addDate"])) {
         $date = date_create($_POST["addDate"]);
         $addDate = date_format($date, "Y/m/d");
         $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
     }
-    if (isset($_POST["description"])) $desc = htmlspecialchars($_POST["description"], ENT_QUOTES);
-    if (isset($_POST["suggTracks"])) $suggested = htmlspecialchars($_POST["suggTracks"], ENT_QUOTES);
-    if (isset($_POST["FCCTracks"])) $FCC = htmlspecialchars($_POST["FCCTracks"], ENT_QUOTES);
-    if($_POST["autoRemove"] == "on") $autoRemove = 1;
+    if (isset($_POST["description"])) $desc = $_POST["description"];
+    if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
+    if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
+    if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;
     $dir="covers/";
-    $albumCover=htmlspecialchars($_FILES['cover']['name'], ENT_QUOTES);
+    $albumCover=$_FILES['cover']['name'];
     $temp_name=$_FILES['cover']['tmp_name'];
  
     if($albumCover!="")
@@ -98,13 +98,21 @@ if (isset($_POST["submit"])) {
     }
     if (!$error) {
         require_once("db.php");
-        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
+        /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
         values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
-        $result = $mydb ->query($sql);
-        if ($result == 1) {
+        $result = $mydb ->query($sql);*/
+        $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $sql->bind_param('ssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $autoRemove, $autoRemoveDate);
+        $result = $sql->execute();
+        
+        if($result) {
             echo "<script>alert('Record has been successfully added... Redirecting to home page.')
             window.location.href = 'Main.php'
             </script>";
+        }
+        else {
+            echo "<script>alert('Please enter valid inputs.')</script>";
         }
     }
     else {

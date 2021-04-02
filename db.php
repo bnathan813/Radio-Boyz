@@ -2,7 +2,7 @@
   require_once("config.php");
 
   class MySQLDB {
-    private $dbConn;
+    public $dbConn;
 
     public function openConnection() {
       $this->dbConn = mysqli_init();
