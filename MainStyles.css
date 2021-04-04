@@ -40,10 +40,11 @@ div.child {
 
 img.logo {
     display: block;
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    width: 15%;
+    position: relative;
+    float: left;
+    top: 90px;
+    left: 50px;
+    width: 200px;
 }
 
 h1 {
