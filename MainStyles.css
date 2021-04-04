@@ -1,66 +1,56 @@
 body {
     font-family: Helvetica, sans-serif;
-    background-color: lightblue;
+    background-color:lightblue;
 }
 
-.list {
-    margin-top: 100px;
+#header {
+    text-align: center;
+    margin: 15px;
 }
 
-.container {
+#add {
+    padding: 5px;
+    border: 5px solid green;
+    background-color: white;
+    font-size: 24pt;
+}
+
+#title {
+    font-size: 40pt;
+}
+
+#releaseList {
+    margin-top: 10px;
+    font-size: 12pt;
+}
+
+#release {
     width: 90%;
-    height: 250px;
     background-color: lightblue;
     border: 5px solid black;
     box-shadow: 5px 5px 5px red;
     margin-top: 15px;
     margin-left: 50px;
     margin-right: 50px;
+    margin-bottom: 15px;
 }
 
-img.child {
-    float: left;
-    margin: 15px;
-    width: 200px;
-    background-color: lightblue;
+#releaseInfo {
+    padding: 10px;
 }
 
-div.child {
-    float: left;
-    width: 30%;
-    margin: auto;
-}
-
-.childtracks {
-    float: right;
-    width: 10%;
-    height: 90%;
-    margin: 15px;
+img.cover {
+    width: 100%;
 }
 
 img.logo {
-    display: block;
-    position: relative;
-    float: left;
-    top: 90px;
-    left: 50px;
-    width: 200px;
+    width: 300px;
+    vertical-align: middle;
 }
 
-h1 {
-    text-align: center;
-}
-
-ul li {
+ul {
     list-style: none;
-}
-
-a.add {
-    position: absolute;
-    display: block;
-    text-align: center;
-    top: 5%;
-    right: 5%;
+    padding-left: 0;
 }
 
 button.remove{
