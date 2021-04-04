@@ -7,10 +7,10 @@
     </head>
     <body>
         <header>
-            <h1>Add Release</h1>
+            <h1 id="addReleaseTitle">Add Release</h1>
         </header>
 
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form id="addForm" method="POST" action="" enctype="multipart/form-data">
 
             <label for="artist">Artist:</label>
             <input type="text" id="artist" name="artist" maxlength="100"><br><br>

@@ -17,11 +17,11 @@
     <body>
         <header>
             <div class='container-fluid' id="header">
-                <div class='row align-items-center' id="headerRow">
+                <div class='row' id="headerRow">
                     <div class='col-xs-12 col-sm-4 headerElement'>
                         <img src="WUVT.png" class="logo" alt="WUVT logo">
                     </div>
-                    <div class='col-xs-12 col-sm-4 headerElement' id="title">
+                    <div class='col-xs-12 col-sm-4 headerElement' id="pageTitle">
                         New Music Rotation
                     </div>
                     <div class='col-xs-12 col-sm-4 headerElement'>
@@ -61,7 +61,7 @@
                                 <?php echo $rows['Genre']; ?>
                             </li>
                             <li>
-                                Added by: <span class='DJName'><?php echo $rows['Author']; ?></span>
+                                Added by: <?php echo $rows['Author']; ?>
                             </li>
                             <li>
                                 <?php echo $rows['DateAdded']; ?>
@@ -78,15 +78,13 @@
                                 
                     <div class='col-xs-12 col-sm-9 col-md-5'>
                         <p>
-                            Description: <span class="desc"><?php echo $rows['Description']; ?></span>
+                            Description: <?php echo $rows['Description']; ?>
                         </p>
                     </div>
                     <div class='col-xs-12 col-sm-3 col-md-2'>
-                        Suggested Tracks: <span class="sugg"><?php echo $rows['Suggested']; ?></span> </br>
-                        FCC: <span class="sugg"><?php echo $rows['FCC']; ?></span> </br> </br>
-                        <div class="buttonRemove">
-                            <a class="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Remove</a>
-                        </div>
+                        Suggested Tracks: <?php echo $rows['Suggested']; ?> </br>
+                        FCC: <?php echo $rows['FCC']; ?> </br> </br>
+                        <a id="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Remove</a>
                     </div>
                 </div>
             </div>

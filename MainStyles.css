@@ -3,6 +3,18 @@ body {
     background-color:lightblue;
 }
 
+#addForm {
+    width: 50%;
+    padding: 10px;
+    border: 5px solid black;
+    margin: auto;
+    background-color: rgb(206, 243, 255);
+}
+
+#addReleaseTitle {
+    text-align: center;
+}
+
 #header {
     text-align: center;
     margin: 15px;
@@ -15,18 +27,17 @@ body {
     font-size: 24pt;
 }
 
-#title {
+#pageTitle {
     font-size: 40pt;
 }
 
 #releaseList {
-    margin-top: 10px;
     font-size: 12pt;
 }
 
 #release {
     width: 90%;
-    background-color: lightblue;
+    background-color:rgb(206, 243, 255);
     border: 5px solid black;
     box-shadow: 5px 5px 5px red;
     margin-top: 15px;
@@ -53,8 +64,8 @@ ul {
     padding-left: 0;
 }
 
-button.remove{
-    background-color: red;
+#remove{
+    color: red;
 }
 
 .artist {
