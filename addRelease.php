@@ -42,6 +42,9 @@
             <label for="cover">Cover:</label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
+            <label for="sampleLink">Insert a link where this album can be sampled:</label>
+            <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" maxlength="100"><br><br>
+
             <label for="autoRemove">Auto-Remove after 90 days?</label>
             <input type="checkbox" id="autoRemove" name="autoRemove"><br><br>
 
@@ -61,6 +64,7 @@ $desc = "";
 $suggested = "";
 $FCC = "";
 $cover = "";
+$sampleLink = "";
 $autoRemove = 0;
 $error = false;
 if (isset($_POST["submit"])) {
@@ -77,6 +81,7 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["description"])) $desc = $_POST["description"];
     if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
     if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
+    $sampleLink = $_POST["sampleLink"];
     if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;    
     $albumCover=$_FILES['cover']['name'];
     
@@ -88,9 +93,9 @@ if (isset($_POST["submit"])) {
         /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
         values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
         $result = $mydb ->query($sql);*/
-        $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $sql->bind_param('ssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $autoRemove, $autoRemoveDate);
+        $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, SampleLink, AutoRemove, AutoRemoveDate)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
         $result = $sql->execute();
         
         if($result) {

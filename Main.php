@@ -110,6 +110,12 @@
                     <div class='col-xs-12 col-sm-3 col-md-2'>
                         Suggested Tracks: <?php echo $rows['Suggested']; ?> </br>
                         FCC: <?php echo $rows['FCC']; ?> </br> </br>
+                        <?php
+                            if($rows['SampleLink'] != "") {
+                                echo "<a id='sampleLink' href=".$rows['SampleLink']." target='_blank'>Click here to sample</a>";
+                            }
+                        ?>
+                        </br></br>
                         <a id="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Remove</a>
                     </div>
                 </div>
