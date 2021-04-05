@@ -12,7 +12,33 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <script src="color-thief.min.js"></script>
+        <script src="jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="MainStyles.css"/>
+        <script>
+            var colorThief = new ColorThief();
+
+            function rgb(color) {
+                return 'rgb(' + color.join(', ') + ')';
+            }
+
+            function setColors() {
+                for (i=0; i<=document.getElementsByClassName("cover").length; i++) {
+                    var img = document.getElementsByClassName('cover')[i];
+                    var palette = colorThief.getPalette(img);
+                    console.log(palette);
+                    
+                    console.log(img.parentNode.parentNode.parentNode);
+                    img.parentNode.parentNode.parentNode.style.backgroundColor = rgb(palette[1]);
+                    img.parentNode.parentNode.parentNode.style.color = rgb(palette[0]);
+                    img.parentNode.parentNode.parentNode.style.boxShadow = "5px 5px 5px " + rgb(palette[2]);
+                }
+            }
+            function init() {                
+                setColors();
+            }
+            window.addEventListener("DOMContentLoaded", init, false);
+        </script>
     </head>
     <body>
         <header>

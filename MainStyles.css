@@ -37,9 +37,9 @@ body {
 
 #release {
     width: 90%;
-    background-color:rgb(206, 243, 255);
+    /*background-color:rgb(206, 243, 255);*/
     border: 5px solid black;
-    box-shadow: 5px 5px 5px red;
+    /*box-shadow: 5px 5px 5px red;*/
     margin-top: 15px;
     margin-left: 50px;
     margin-right: 50px;
