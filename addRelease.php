@@ -42,7 +42,7 @@
             <label for="cover">Cover:</label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
-            <label for="sampleLink">Insert a link where this album can be sampled:</label>
+            <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>
             <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" maxlength="100"><br><br>
 
             <label for="autoRemove">Auto-Remove after 90 days?</label>
