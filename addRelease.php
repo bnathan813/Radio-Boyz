@@ -111,7 +111,7 @@ if (isset($_POST["submit"])) {
             <label for="FCCTracks">FCC Tracks:</label>
             <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" value="<?php echo $FCC; ?>" maxlength="50"><br><br>
 
-            <label for="cover">Cover:</label>
+            <label for="cover">Cover (filename length limit 100 characters):</label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
             <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>

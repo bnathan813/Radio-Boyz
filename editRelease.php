@@ -54,7 +54,7 @@
             <label for="FCCTracks">FCC Tracks:</label>
             <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" value="<?php echo $rows['FCC']; ?>" maxlength="50"><br><br>
 
-            <label for="cover">Cover <strong>(Note: Must re-upload cover for each edit):</strong></label>
+            <label for="cover">Cover (filename limit 100 characters, <strong>Note: Must re-upload cover for each edit):</strong></label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
             <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>
