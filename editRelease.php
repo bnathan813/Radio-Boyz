@@ -1,52 +1,72 @@
+<?php
+    require_once('db.php');
+    if(isset($_GET['edit'])) {
+        $id = $_GET['edit'];
+        $origCover = $_GET['cover'];
+        $dir = "covers/";
+    }
+    $sql = "SELECT * FROM bit4444group41.record WHERE idRecord = '$id'";
+    $result = $mydb ->query($sql);
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Add Release</title>
+        <title>Edit Release</title>
         <link rel="stylesheet" type="text/css" href="MainStyles.css"/>
     </head>
     <body>
         <header>
-            <h1 id="addReleaseTitle">Add Release</h1>
+            <h1 id="addReleaseTitle">Edit Release</h1>
         </header>
 
         <form id="addForm" method="POST" action="" enctype="multipart/form-data">
 
+            <?php
+                while ($rows = mysqli_fetch_array($result)) {
+            ?>
+
             <label for="artist">Artist:</label>
-            <input type="text" id="artist" name="artist" maxlength="100"><br><br>
+            <input type="text" id="artist" name="artist" value="<?php echo $rows['Artist']; ?>" maxlength="100"><br><br>
             
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" maxlength="100"><br><br>
+            <input type="text" id="title" name="title" value="<?php echo $rows['Title']; ?>" maxlength="100"><br><br>
             
             <label for="label">Label:</label>
-            <input type="text" id="label" name="label" maxlength="45"><br><br>
+            <input type="text" id="label" name="label" value="<?php echo $rows['Label']; ?>" maxlength="45"><br><br>
 
             <label for="genre">Genre(s):</label>
-            <input type="text" id="genre" name="genre" maxlength="45"><br><br>
+            <input type="text" id="genre" name="genre" value="<?php echo $rows['Genre']; ?>" maxlength="45"><br><br>
 
             <label for="addedBy">Added By:</label>
-            <input type="text" id="addedBy" name="addedBy" maxlength="100"><br><br>
+            <input type="text" id="addedBy" name="addedBy" value="<?php echo $rows['Author']; ?>" maxlength="100"><br><br>
 
             <label for="addDate">Date Added (today):</label>
-            <input type="date" id="addDate" name="addDate"><br><br>
+            <input type="date" id="addDate" name="addDate" value="<?php echo $rows['DateAdded']; ?>"><br><br>
 
             <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="8" cols="50" maxlength="1000"></textarea><br><br>
+            <textarea id="description" name="description" rows="8" cols="50" maxlength="1000"><?php echo $rows['Description']; ?></textarea><br><br>
 
             <label for="suggTracks">Suggested Tracks:</label>
-            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" maxlength="50"><br><br>
+            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" value="<?php echo $rows['Suggested']; ?>" maxlength="50"><br><br>
 
             <label for="FCCTracks">FCC Tracks:</label>
-            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" maxlength="50"><br><br>
+            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" value="<?php echo $rows['FCC']; ?>" maxlength="50"><br><br>
 
-            <label for="cover">Cover:</label>
+            <label for="cover">Cover <strong>(Note: Must re-upload cover for each edit):</strong></label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
             <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>
-            <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" maxlength="100"><br><br>
+            <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" value="<?php echo $rows['SampleLink']; ?>" maxlength="100"><br><br>
 
             <label for="autoRemove">Auto-Remove after 90 days?</label>
-            <input type="checkbox" id="autoRemove" name="autoRemove"><br><br>
+            <?php if($rows['AutoRemove']==1) {echo "on";} else {echo "off";} ?>
+            <input type="checkbox" id="autoRemove" name="autoRemove" <?php if($rows['AutoRemove']==1) {echo "checked";} else {echo "unchecked";} ?>><br><br>
+
+            <?php
+                }
+            ?>
 
             <input type="submit" name = "submit" value="Add Record">
         </form>
@@ -63,7 +83,6 @@ $date = date_create();
 $desc = "";
 $suggested = "";
 $FCC = "";
-$cover = "";
 $sampleLink = "";
 $autoRemove = 0;
 $error = false;
@@ -93,8 +112,7 @@ if (isset($_POST["submit"])) {
         /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
         values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
         $result = $mydb ->query($sql);*/
-        $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, SampleLink, AutoRemove, AutoRemoveDate)
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $sql = $mydb->dbConn->prepare("update bit4444group41.record set Artist=?, Title=?, Label=?, Genre=?, Author=?, DateAdded=?, Description=?, Suggested=?, FCC=?, AlbumCover=?, SampleLink=?, AutoRemove=?, AutoRemoveDate=? where idRecord=$id");
         $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
         $result = $sql->execute();
         
@@ -103,14 +121,14 @@ if (isset($_POST["submit"])) {
             $temp_name=$_FILES['cover']['tmp_name'];
  
             if($albumCover!="") {
-                if(file_exists($dir.$albumCover)) {
-                    $albumCover= time().'_'.$albumCover;
+                if(file_exists($dir.$origCover)) {
+                    unlink($dir.$origCover);
                 }
  
                 $fdir= $dir.$albumCover;
                 move_uploaded_file($temp_name, $fdir);
             }
-            echo "<script>alert('Record has been successfully added... Redirecting to home page.')
+            echo "<script>alert('Record has been successfully edited... Redirecting to home page.')
             window.location.href = 'Main.php'
             </script>";
         }

@@ -1,6 +1,6 @@
 <?php
     require_once("db.php");
-    $sql = "select * from bit4444group41.record order by DateAdded DESC";
+    $sql = "select * from bit4444group41.record order by DateAdded DESC, idRecord DESC";
     $result = $mydb->query($sql);
     date_default_timezone_set('EST');
 ?>
@@ -115,6 +115,8 @@
                                 echo "<a id='sampleLink' href=".$rows['SampleLink']." target='_blank'>Click here to sample</a>";
                             }
                         ?>
+                        </br></br>
+                        <a id="edit" href="editRelease.php?edit=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Edit</a>
                         </br></br>
                         <a id="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Remove</a>
                     </div>
