@@ -109,9 +109,6 @@ if (isset($_POST["submit"])) {
     }
     if (!$error) {
         require_once("db.php");
-        /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
-        values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
-        $result = $mydb ->query($sql);*/
         $sql = $mydb->dbConn->prepare("update bit4444group41.record set Artist=?, Title=?, Label=?, Genre=?, Author=?, DateAdded=?, Description=?, Suggested=?, FCC=?, AlbumCover=?, SampleLink=?, AutoRemove=?, AutoRemoveDate=? where idRecord=$id");
         $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
         $result = $sql->execute();
