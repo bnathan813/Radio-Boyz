@@ -1,58 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Add Release</title>
-        <link rel="stylesheet" type="text/css" href="MainStyles.css"/>
-    </head>
-    <body>
-        <header>
-            <h1 id="addReleaseTitle">Add Release</h1>
-        </header>
-
-        <form id="addForm" method="POST" action="" enctype="multipart/form-data">
-
-            <label for="artist">Artist:</label>
-            <input type="text" id="artist" name="artist" maxlength="100"><br><br>
-            
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" maxlength="100"><br><br>
-            
-            <label for="label">Label:</label>
-            <input type="text" id="label" name="label" maxlength="45"><br><br>
-
-            <label for="genre">Genre(s):</label>
-            <input type="text" id="genre" name="genre" maxlength="45"><br><br>
-
-            <label for="addedBy">Added By:</label>
-            <input type="text" id="addedBy" name="addedBy" maxlength="100"><br><br>
-
-            <label for="addDate">Date Added (today):</label>
-            <input type="date" id="addDate" name="addDate"><br><br>
-
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="8" cols="50" maxlength="1000"></textarea><br><br>
-
-            <label for="suggTracks">Suggested Tracks:</label>
-            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" maxlength="50"><br><br>
-
-            <label for="FCCTracks">FCC Tracks:</label>
-            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" maxlength="50"><br><br>
-
-            <label for="cover">Cover:</label>
-            <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
-
-            <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>
-            <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" maxlength="100"><br><br>
-
-            <label for="autoRemove">Auto-Remove after 90 days?</label>
-            <input type="checkbox" id="autoRemove" name="autoRemove"><br><br>
-
-            <input type="submit" name = "submit" value="Add Record">
-        </form>
-    </body>
-</html>
-
 <?php
 $artist = "";
 $title ="";
@@ -75,7 +20,7 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
     if (isset($_POST["addDate"])) {
         $date = date_create($_POST["addDate"]);
-        $addDate = date_format($date, "Y/m/d");
+        $dateString = date_format($date, "Y/m/d");
         $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
     }
     if (isset($_POST["description"])) $desc = $_POST["description"];
@@ -91,11 +36,11 @@ if (isset($_POST["submit"])) {
     if (!$error) {
         require_once("db.php");
         /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
-        values ('$artist', '$title', '$label', '$genre', '$author', '$addDate', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
+        values ('$artist', '$title', '$label', '$genre', '$author', '$dateString', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
         $result = $mydb ->query($sql);*/
         $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, SampleLink, AutoRemove, AutoRemoveDate)
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
+        $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $dateString, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
         $result = $sql->execute();
         
         if($result) {
@@ -124,3 +69,58 @@ if (isset($_POST["submit"])) {
 }
 
 ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add Release</title>
+        <link rel="stylesheet" type="text/css" href="MainStyles.css"/>
+    </head>
+    <body>
+        <header>
+            <h1 id="addReleaseTitle">Add Release</h1>
+        </header>
+
+        <form id="addForm" method="POST" action="" enctype="multipart/form-data">
+
+            <label for="artist">Artist:</label>
+            <input type="text" id="artist" name="artist" value="<?php echo $artist; ?>" maxlength="100"><br><br>
+            
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="<?php echo $title; ?>" maxlength="100"><br><br>
+            
+            <label for="label">Label:</label>
+            <input type="text" id="label" name="label" value="<?php echo $label; ?>" maxlength="45"><br><br>
+
+            <label for="genre">Genre(s):</label>
+            <input type="text" id="genre" name="genre" value="<?php echo $genre; ?>" maxlength="45"><br><br>
+
+            <label for="addedBy">Added By:</label>
+            <input type="text" id="addedBy" name="addedBy" value="<?php echo $author; ?>" maxlength="100"><br><br>
+
+            <label for="addDate">Date Added (today):</label>
+            <input type="date" id="addDate" value="<?php if(isset($_POST["addDate"])) echo $_POST["addDate"]; ?>" name="addDate"><br><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="8" cols="50" value="<?php echo $desc; ?>" maxlength="1000"></textarea><br><br>
+
+            <label for="suggTracks">Suggested Tracks:</label>
+            <input type="text" id="suggTracks" name="suggTracks" placeholder="1, 2!, 8" value="<?php echo $suggested; ?>" maxlength="50"><br><br>
+
+            <label for="FCCTracks">FCC Tracks:</label>
+            <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" value="<?php echo $FCC; ?>" maxlength="50"><br><br>
+
+            <label for="cover">Cover:</label>
+            <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
+
+            <label for="sampleLink">Insert a link to where this album can be sampled (optional):</label>
+            <input type="text" id="sampleLink" name="sampleLink" placeholder="https://www.youtube.com/" value="<?php echo $sampleLink; ?>" maxlength="100"><br><br>
+
+            <label for="autoRemove">Auto-Remove after 90 days?</label>
+            <input type="checkbox" id="autoRemove" <?php if($autoRemove==1) {echo "checked";} else {echo "unchecked";} ?> name="autoRemove"><br><br>
+
+            <input type="submit" name = "submit" value="Add Record">
+        </form>
+    </body>
+</html>

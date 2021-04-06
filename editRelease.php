@@ -94,7 +94,7 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
     if (isset($_POST["addDate"])) {
         $date = date_create($_POST["addDate"]);
-        $addDate = date_format($date, "Y/m/d");
+        $dateString = date_format($date, "Y/m/d");
         $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
     }
     if (isset($_POST["description"])) $desc = $_POST["description"];
@@ -110,7 +110,7 @@ if (isset($_POST["submit"])) {
     if (!$error) {
         require_once("db.php");
         $sql = $mydb->dbConn->prepare("update bit4444group41.record set Artist=?, Title=?, Label=?, Genre=?, Author=?, DateAdded=?, Description=?, Suggested=?, FCC=?, AlbumCover=?, SampleLink=?, AutoRemove=?, AutoRemoveDate=? where idRecord=$id");
-        $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $addDate, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
+        $sql->bind_param('sssssssssssis', $artist, $title, $label, $genre, $author, $dateString, $desc, $suggested, $FCC, $albumCover, $sampleLink, $autoRemove, $autoRemoveDate);
         $result = $sql->execute();
         
         if($result) {
