@@ -68,7 +68,7 @@
                 }
             ?>
 
-            <input type="submit" name = "submit" value="Add Record">
+            <input type="submit" name = "submit" value="Edit Record">
         </form>
     </body>
 </html>

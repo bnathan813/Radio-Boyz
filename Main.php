@@ -26,9 +26,6 @@
                 for (i=0; i<=document.getElementsByClassName("cover").length; i++) {
                     var img = document.getElementsByClassName('cover')[i];
                     var palette = colorThief.getPalette(img);
-                    console.log(palette);
-                    
-                    console.log(img.parentNode.parentNode.parentNode);
                     img.parentNode.parentNode.parentNode.style.backgroundColor = rgb(palette[1]);
                     img.parentNode.parentNode.parentNode.style.color = rgb(palette[0]);
                     img.parentNode.parentNode.parentNode.style.boxShadow = "5px 5px 5px " + rgb(palette[2]);
