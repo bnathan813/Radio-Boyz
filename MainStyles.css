@@ -20,13 +20,6 @@ body {
     margin: 15px;
 }
 
-#add {
-    padding: 5px;
-    border: 5px solid green;
-    background-color: white;
-    font-size: 24pt;
-}
-
 #pageTitle {
     font-size: 40pt;
 }

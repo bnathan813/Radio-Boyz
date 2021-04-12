@@ -51,7 +51,7 @@
                         New Music Rotation
                     </div>
                     <div class='col-xs-12 col-sm-4 headerElement'>
-                        <a id="add" href="addRelease.php">Add Release</a>
+                        <a id="add" href="addRelease.php"><button class="btn btn-success btn-lg">Add Release</button></a>
                     </div>                    
                 </div>
             </div>
@@ -112,13 +112,13 @@
                         FCC: <?php echo $rows['FCC']; ?> </br> </br>
                         <?php
                             if($rows['SampleLink'] != "") {
-                                echo "<a id='sampleLink' href=".$rows['SampleLink']." target='_blank'>Click here to sample</a>";
+                                echo "<a id='sampleLink' href=".$rows['SampleLink']." target='_blank'><button class='btn'>Click here to sample</button></a>";
                             }
                         ?>
                         </br></br>
-                        <a id="edit" href="editRelease.php?edit=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Edit</a>
+                        <a id="edit" href="editRelease.php?edit=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>"><button class="btn">Edit</button></a>
                         </br></br>
-                        <a id="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>">Remove</a>
+                        <a id="remove" href="delete.php?del=<?php echo $rows['idRecord']; ?>&cover=<?php echo $rows['AlbumCover']; ?>"><button class="btn btn-danger">Remove</button></a>
                     </div>
                 </div>
             </div>
