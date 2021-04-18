@@ -16,17 +16,17 @@
         <script src="jquery-3.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="MainStyles.css"/>
         <script>
-            var colorThief = new ColorThief();
+            var colorThief = new ColorThief(); //JS library from GitHub, gets dominant colors of album cover for styling. Doesn't quite work right. Maybe try jQuery.
 
             function rgb(color) {
-                return 'rgb(' + color.join(', ') + ')';
+                return 'rgb(' + color.join(', ') + ')'; //converts array of nums to rbg for css
             }
 
-            function setColors() {
+            function setColors() { //for every cover in class "cover", get its palette (dominant colors) and set colors to first 3
                 for (i=0; i<=document.getElementsByClassName("cover").length; i++) {
                     var img = document.getElementsByClassName('cover')[i];
                     var palette = colorThief.getPalette(img);
-                    img.parentNode.parentNode.parentNode.style.backgroundColor = rgb(palette[1]);
+                    img.parentNode.parentNode.parentNode.style.backgroundColor = rgb(palette[1]); //refers to the album's container box id="release"
                     img.parentNode.parentNode.parentNode.style.color = rgb(palette[0]);
                     img.parentNode.parentNode.parentNode.style.boxShadow = "5px 5px 5px " + rgb(palette[2]);
                 }
@@ -56,12 +56,12 @@
 
         <div id="releaseList">
             <?php
-                while ($rows = mysqli_fetch_array($result)) {
+                while ($rows = mysqli_fetch_array($result)) { //bracket closes line 123 (for every row in db create everything below)
                     if($rows['AutoRemoveDate'] <= date("Y-m-d") && $rows['AutoRemove'] == 1) {
                         $id = $rows['idRecord'];
                         $cover = $rows['AlbumCover'];
                         $dir = "covers/";
-                        unlink($dir.$cover);
+                        unlink($dir.$cover); //remove cover from covers folder
                         $autoDeletesql = "DELETE FROM bit4444group41.record WHERE idRecord = '$id'";
                         $autoDeleteresult = $mydb ->query($autoDeletesql);
                         echo "<meta http-equiv='refresh' content='0;url=Main.php'>";

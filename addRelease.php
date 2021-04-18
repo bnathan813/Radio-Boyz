@@ -20,13 +20,13 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
     if (isset($_POST["addDate"])) {
         $date = date_create($_POST["addDate"]);
-        $dateString = date_format($date, "Y/m/d");
-        $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
+        $dateString = date_format($date, "Y/m/d"); //formats date correctly
+        $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d"); //adds 90 days for autoRemoveDate
     }
     if (isset($_POST["description"])) $desc = $_POST["description"];
     if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
     if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
-    $sampleLink = $_POST["sampleLink"];
+    $sampleLink = $_POST["sampleLink"]; //optional
     if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;    
     $albumCover=$_FILES['cover']['name'];
     
@@ -35,7 +35,8 @@ if (isset($_POST["submit"])) {
     }
     if (!$error) {
         require_once("db.php");
-        /*$sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
+        /* alternate query, causes problems with special chars
+        $sql = "insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, AutoRemove, AutoRemoveDate)
         values ('$artist', '$title', '$label', '$genre', '$author', '$dateString', '$desc', '$suggested', '$FCC', '$albumCover', '$autoRemove', '$autoRemoveDate')";
         $result = $mydb ->query($sql);*/
         $sql = $mydb->dbConn->prepare("insert into bit4444group41.record(Artist, Title, Label, Genre, Author, DateAdded, Description, Suggested, FCC, AlbumCover, SampleLink, AutoRemove, AutoRemoveDate)
@@ -49,7 +50,7 @@ if (isset($_POST["submit"])) {
  
             if($albumCover!="") {
                 if(file_exists($dir.$albumCover)) {
-                    $albumCover= time().'_'.$albumCover;
+                    $albumCover= time().'_'.$albumCover; //if duplicate album cover, adds digits to filename
                 }
  
                 $fdir= $dir.$albumCover;

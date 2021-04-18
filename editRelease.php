@@ -1,7 +1,7 @@
 <?php
     require_once('db.php');
     if(isset($_GET['edit'])) {
-        $id = $_GET['edit'];
+        $id = $_GET['edit']; //gets id and cover from main page edit button
         $origCover = $_GET['cover'];
         $dir = "covers/";
     }
@@ -24,7 +24,7 @@
         <form id="addForm" method="POST" action="" enctype="multipart/form-data">
 
             <?php
-                while ($rows = mysqli_fetch_array($result)) {
+                while ($rows = mysqli_fetch_array($result)) { //fills in values based on the record from db
             ?>
 
             <label for="artist">Artist:</label>
@@ -54,6 +54,7 @@
             <label for="FCCTracks">FCC Tracks:</label>
             <input type="text" id="FCCTracks" name="FCCTracks" placeholder="1, 3, 6, none" value="<?php echo $rows['FCC']; ?>" maxlength="50"><br><br>
 
+            <!-- cannot set the value of a file input, must re-upload with each edit -->
             <label for="cover">Cover (filename limit 100 characters, <strong>Note: Must re-upload cover for each edit):</strong></label>
             <input type="file" id="cover" name="cover" accept=".jpg" accept=".png" maxlength="100"><br><br>
 
@@ -94,13 +95,13 @@ if (isset($_POST["submit"])) {
     if (isset($_POST["addedBy"])) $author = $_POST["addedBy"];
     if (isset($_POST["addDate"])) {
         $date = date_create($_POST["addDate"]);
-        $dateString = date_format($date, "Y/m/d");
-        $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d");
+        $dateString = date_format($date, "Y/m/d"); //formats date correctly
+        $autoRemoveDate = date_format(date_add($date, date_interval_create_from_date_string('90 days')), "Y/m/d"); //adds 90 days for autoRemoveDate
     }
     if (isset($_POST["description"])) $desc = $_POST["description"];
     if (isset($_POST["suggTracks"])) $suggested = $_POST["suggTracks"];
     if (isset($_POST["FCCTracks"])) $FCC = $_POST["FCCTracks"];
-    $sampleLink = $_POST["sampleLink"];
+    $sampleLink = $_POST["sampleLink"]; //optional
     if(isset($_POST["autoRemove"]) && $_POST["autoRemove"] == "on") $autoRemove = 1;    
     $albumCover=$_FILES['cover']['name'];
     
@@ -119,11 +120,11 @@ if (isset($_POST["submit"])) {
  
             if($albumCover!="") {
                 if(file_exists($dir.$origCover)) {
-                    unlink($dir.$origCover);
+                    unlink($dir.$origCover); //removes original cover
                 }
  
                 $fdir= $dir.$albumCover;
-                move_uploaded_file($temp_name, $fdir);
+                move_uploaded_file($temp_name, $fdir); //adds new cover
             }
             echo "<script>alert('Record has been successfully edited... Redirecting to home page.')
             window.location.href = 'Main.php'

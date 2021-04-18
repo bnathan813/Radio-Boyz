@@ -1,6 +1,6 @@
 body {
     font-family: Helvetica, sans-serif;
-    background-color:lightblue;
+    background-color:#CFEEFF; /*same as WUVT main site*/
 }
 
 #addForm {
@@ -8,7 +8,7 @@ body {
     padding: 10px;
     border: 5px solid black;
     margin: auto;
-    background-color: rgb(206, 243, 255);
+    background-color: rgb(205, 243, 255);
 }
 
 #addReleaseTitle {
@@ -29,10 +29,11 @@ body {
 }
 
 #release {
-    width: 90%;
-    /*background-color:rgb(206, 243, 255);*/
-    border: 5px solid black;
+    /*original styles before ColorThief*/
     /*box-shadow: 5px 5px 5px red;*/
+    /*background-color:rgb(206, 243, 255);*/
+    width: 90%;
+    border: 5px solid black;
     margin-top: 15px;
     margin-left: 50px;
     margin-right: 50px;
